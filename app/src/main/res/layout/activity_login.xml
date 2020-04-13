@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    tools:context=".login">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:onClick="back"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="80dp"
+            android:text="Login"
+            android:textColor="#070707"
+            android:textSize="40dp"/>
+        <EditText
+            android:id="@+id/etName"
+            android:layout_below="@+id/login"
+            android:layout_width="250dp"
+            android:layout_marginTop="80dp"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/etPass"
+            android:layout_below="@+id/etName"
+            android:layout_marginTop="20dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etPass"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:text="LOGIN"
+            android:background="#8AB3B9"/>
+
+        <TextView
+            android:id="@+id/newUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLogin"
+            android:text="New user?"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Register"
+            android:onClick="goRegister"
+            android:textColor="#2196F3"/>
+
+
+
+
+    </RelativeLayout>
+</LinearLayout>

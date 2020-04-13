@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".register">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:onClick="back"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="80dp"
+            android:text="Register"
+            android:textColor="#070707"
+            android:textSize="40dp"/>
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/register"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:hint="Username"
+            android:textColor="#000C0B0B" />
+
+        <EditText
+            android:id="@+id/etPass"
+            android:layout_below="@+id/etName"
+            android:layout_marginTop="20dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/etNum"
+            android:layout_below="@+id/etPass"
+            android:layout_marginTop="20dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Contact Number"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etNum"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="#8AB3B9"
+            android:text="REGISTER" />
+
+
+
+    </RelativeLayout>
+</LinearLayout>

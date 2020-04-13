@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <EditText
+        android:id="@+id/shopDesc"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register"
+        android:layout_centerHorizontal="true"
+        android:hint="Description"
+        android:textColor="#000C0B0B" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shopDesc"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="20dp"
+            android:text="$"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+
+        <EditText
+            android:id="@+id/shopCost"
+            android:layout_below="@+id/shopDesc"
+            android:layout_marginTop="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Amount Spend"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/btnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:onClick="dateshow"/>
+
+        <EditText
+            android:id="@+id/shopDate"
+            android:layout_below="@+id/shopCost"
+            android:layout_marginTop="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Date"
+            android:layout_centerHorizontal="true"/>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+    </LinearLayout>
