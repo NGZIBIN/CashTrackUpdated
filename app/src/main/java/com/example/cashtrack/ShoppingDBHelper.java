@@ -17,7 +17,7 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "shopping";
     private static final String TABLE_SHOP = "shop";
     private static final String COLUMN_ID = "_id";
-    private static final String COLUMN_DESC = "desc";
+    private static final String COLUMN_DESC = "description";
     private static final String COLUMN_COST = "cost";
     private static final String COLUMN_DATE = "date";
 
@@ -30,7 +30,7 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         String createTableSql = "CREATE TABLE " + TABLE_SHOP + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_DESC + "TEXT,"
-                + COLUMN_COST + " INT,"
+                + COLUMN_COST + " INTEGER,"
                 + COLUMN_DATE + " TEXT )";
         db.execSQL(createTableSql);
         Log.i("info", "created tables");
@@ -42,12 +42,12 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertData(String desc, int cost, String date) {
+    public long insertData(String description, int cost, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_DESC, desc);
+        values.put(COLUMN_DESC, description);
 
         values.put(COLUMN_COST, cost);
 

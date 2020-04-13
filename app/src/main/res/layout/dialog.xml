@@ -42,10 +42,18 @@
 
         <ImageView
             android:id="@+id/btnDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="80dp"
+
+            android:src="@drawable/calendar"
             android:onClick="dateshow"/>
+<!--        <Button-->
+<!--            android:id="@+id/btnDate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="datepicker"-->
+<!--            android:layout_below="@+id/shopDate"/>-->
 
         <EditText
             android:id="@+id/shopDate"

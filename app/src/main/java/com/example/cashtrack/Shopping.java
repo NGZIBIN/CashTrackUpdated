@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,12 +42,8 @@ Button btnDate;
         final EditText etInputCost = viewDialog.findViewById(R.id.shopCost);
         final EditText etInputDate = viewDialog.findViewById(R.id.shopDate);
 
-        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        String cDate = date.format(new Date());
-        etInputDate.setText(cDate);
+        final ImageView btnDatePicker = viewDialog.findViewById(R.id.btnDate);
 
-        AlertDialog.Builder myBuilder = new AlertDialog.Builder(Shopping.this);
-        final Button btnDatePicker = (Button) viewDialog.findViewById(R.id.btnDate);
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +53,6 @@ Button btnDate;
                         etInputDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                     }
                 };
-
                 // Create the DatePicker Dialog
                 Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR);
@@ -68,15 +66,20 @@ Button btnDate;
             }
         });
 
+        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        String cDate = date.format(new Date());
+        etInputDate.setText(cDate);
+
+        AlertDialog.Builder myBuilder = new AlertDialog.Builder(Shopping.this);
         myBuilder.setView(viewDialog);
         myBuilder.setTitle("Add New");
-
         myBuilder.setCancelable(false);
         myBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                     String addDesc = etInputDesc.getText().toString();
                     String addCost = etInputCost.getText().toString();
+                    String addDate = etInputDate.getText().toString();
                     int intCost = Integer.parseInt(addCost);
 
                     if(addDesc.isEmpty()){
@@ -85,11 +88,19 @@ Button btnDate;
                     else if(addCost.isEmpty()){
                         etInputCost.setError("PLease enter a Cost");
                     }
+                    else if(addDate.isEmpty()){
+                        etInputDate.setError("Please enter a Date");
+                    }
                     else{
-//                        ShoppingDBHelper helper = new ShoppingDBHelper(Shopping.this);
-//                        ArrayList<ShoppingAdapter> data = helper.getAllData();
-//
-//                        long row = helper.insertData(addDesc,)
+                        ShoppingDBHelper helper = new ShoppingDBHelper(Shopping.this);
+                        ArrayList<ShoppingAdapter> data = helper.getAllData();
+
+                        long row = helper.insertData(addDesc, intCost, addDate);
+                        helper.close();
+
+                        if(row != -1){
+                            Toast.makeText(Shopping.this,"Added Successfully!", Toast.LENGTH_LONG).show();
+                        }
                     }
             }
         });
@@ -99,7 +110,31 @@ Button btnDate;
 
     }
 
-
+//    public void dateshow(View view){
+//        final ImageButton btnDatePicker = findViewById(R.id.btnDate);
+//        btnDatePicker.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+////                        etInputDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+//                    }
+//                };
+//
+//                // Create the DatePicker Dialog
+//                Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR);
+//                int mMonth = c.get(Calendar.MONTH);
+//                int mDay = c.get(Calendar.DAY_OF_MONTH);
+//
+//                DatePickerDialog myDateDialog = new DatePickerDialog(Shopping.this,
+//                        myDateListener, mYear, mMonth, mDay);
+//                myDateDialog.show();
+//
+//            }
+//        });
+//    }
 
 
 }
