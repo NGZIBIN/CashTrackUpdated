@@ -7,6 +7,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -24,10 +27,37 @@ import java.util.Date;
 
 public class Shopping extends AppCompatActivity {
 Button btnDate;
+ListView lvData;
+SQLiteDatabase db;
+ShoppingDBHelper shopDB;
+Cursor cursor;
+ListAdapter listAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
+        lvData = findViewById(R.id.lvData);
+        shopDB = new ShoppingDBHelper(getApplicationContext());
+        db = shopDB.getReadableDatabase();
+        cursor = shopDB.getAllDataForList();
+        listAdapter = new ListAdapter(getApplicationContext(), R.layout.row_layout);
+        lvData.setAdapter(listAdapter);
+        if(cursor.moveToFirst()){
+            do{
+                String desc, date;
+                Integer id, cost;
+                id = cursor.getInt(0);
+                desc = cursor.getString(1);
+                cost = cursor.getInt(2);
+                date = cursor.getString(3);
+
+                ShoppingAdapter shoppingadapter = new ShoppingAdapter(id, desc, cost, date);
+                listAdapter.add(shoppingadapter);
+
+
+            }
+            while (cursor.moveToNext());
+        }
     }
 
     public void back(View view){

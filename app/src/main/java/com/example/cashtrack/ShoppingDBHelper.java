@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ShoppingDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "shopping";
     private static final String TABLE_SHOP = "shop";
     private static final String COLUMN_ID = "_id";
@@ -29,7 +29,7 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTableSql = "CREATE TABLE " + TABLE_SHOP + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_DESC + "TEXT,"
+                + COLUMN_DESC + " TEXT,"
                 + COLUMN_COST + " INTEGER,"
                 + COLUMN_DATE + " TEXT )";
         db.execSQL(createTableSql);
@@ -67,12 +67,16 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+
+
+
+
     public ArrayList<ShoppingAdapter> getAllData() {
         ArrayList<ShoppingAdapter> shopData = new ArrayList<ShoppingAdapter>();
 
         String selectQuery = "SELECT " + COLUMN_ID + ","
-                + COLUMN_DESC + ", "
-                + COLUMN_COST + ", "
+                + COLUMN_DESC + " , "
+                + COLUMN_COST + " , "
                 + COLUMN_DATE
                 + " FROM " + TABLE_SHOP;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -92,6 +96,17 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         db.close();
 
         return shopData;
+    }
+
+    public Cursor getAllDataForList(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT " + COLUMN_ID + ","
+                + COLUMN_DESC + " , "
+                + COLUMN_COST + " , "
+                + COLUMN_DATE
+                + " FROM " + TABLE_SHOP;
+        Cursor result = db.rawQuery(selectQuery, null);
+        return result;
     }
     }
 
