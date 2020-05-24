@@ -11,23 +11,22 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ShoppingDBHelper extends SQLiteOpenHelper {
-
-    private static final int DATABASE_VERSION = 6;
-    private static final String DATABASE_NAME = "shopping";
-    private static final String TABLE_SHOP = "shop";
+public class FoodDBHelper extends SQLiteOpenHelper {
+    private static final int DATABASE_VERSION = 5;
+    private static final String DATABASE_NAME = "foodCost";
+    private static final String TABLE_FOOD = "food";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_DESC = "description";
     private static final String COLUMN_COST = "cost";
     private static final String COLUMN_DATE = "date";
 
-    public ShoppingDBHelper(@Nullable Context context) {
+    public FoodDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableSql = "CREATE TABLE " + TABLE_SHOP + "("
+        String createTableSql = "CREATE TABLE " + TABLE_FOOD + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_DESC + " TEXT,"
                 + COLUMN_COST + " INTEGER,"
@@ -38,7 +37,7 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOP);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD);
         onCreate(db);
     }
 
@@ -54,7 +53,7 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATE, date);
 
 
-        long result = db.insert(TABLE_SHOP, null, values);
+        long result = db.insert(TABLE_FOOD, null, values);
 
         db.close();
         if (result == -1){
@@ -68,16 +67,14 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
 
 
 
-
-
-    public ArrayList<Shoppings> getAllData() {
-        ArrayList<Shoppings> shopData = new ArrayList<Shoppings>();
+    public ArrayList<Foods> getAllData() {
+        ArrayList<Foods> foodData = new ArrayList<Foods>();
 
         String selectQuery = "SELECT " + COLUMN_ID + ","
                 + COLUMN_DESC + " , "
                 + COLUMN_COST + " , "
                 + COLUMN_DATE
-                + " FROM " + TABLE_SHOP;
+                + " FROM " + TABLE_FOOD;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -86,15 +83,15 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
                 String desc = cursor.getString(1);
                 int cost = cursor.getInt(2);
                 String date = cursor.getString(3);
-                Shoppings obj = new Shoppings(id,desc,cost,date);
-                shopData.add(obj);
+                Foods obj = new Foods(id,desc,cost,date);
+                foodData.add(obj);
             } while (cursor.moveToNext());
         }
         // Close connection
         cursor.close();
         db.close();
 
-        return shopData;
+        return foodData;
     }
 
     public Cursor getAllDataForList(){
@@ -103,12 +100,12 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
                 + COLUMN_DESC + " , "
                 + COLUMN_COST + " , "
                 + COLUMN_DATE
-                + " FROM " + TABLE_SHOP;
+                + " FROM " + TABLE_FOOD;
         Cursor result = db.rawQuery(selectQuery, null);
         return result;
     }
 
-    public int updateInfo(Shoppings data){
+    public int updateInfo(Foods data){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_DESC, data.getDesc());
@@ -116,7 +113,7 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_COST, data.getCost());
         String condition = COLUMN_ID + "= ?";
         String[] args = {String.valueOf(data.getId())};
-        int result = db.update(TABLE_SHOP, values, condition, args);
+        int result = db.update(TABLE_FOOD, values, condition, args);
         db.close();
         return result;
     }
@@ -125,10 +122,9 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String condition = COLUMN_ID + "= ?";
         String[] args = {String.valueOf(id)};
-        int result = db.delete(TABLE_SHOP, condition, args);
+        int result = db.delete(TABLE_FOOD, condition, args);
         db.close();
         return result;
     }
 
-    }
-
+}

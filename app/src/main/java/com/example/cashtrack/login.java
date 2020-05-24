@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class login extends AppCompatActivity {
-
+    private SharedPreferencesConfig sharedPreferencesConfig;
     EditText etPass, etName;
     Button btnLogin;
 
@@ -30,6 +30,13 @@ public class login extends AppCompatActivity {
             public void onClick(View view) {
                 String name = etName.getText().toString();
                 String pass = etPass.getText().toString();
+                sharedPreferencesConfig = new SharedPreferencesConfig(getApplicationContext());
+
+//                if(sharedPreferencesConfig.read_login_status()){
+//                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
 
                 LoginDBHelper helper = new LoginDBHelper(login.this);
                 ArrayList<Accounts> data = helper.getAllAccount();
@@ -47,6 +54,7 @@ public class login extends AppCompatActivity {
                     else{
                         if(name.equals(dbName) && (pass.equals(dbPass))){
                             Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                            intent.putExtra("username", name);
                             startActivity(intent);
                             Toast.makeText(login.this, "Welcome back " + name, Toast.LENGTH_LONG).show();
                         }
@@ -58,6 +66,7 @@ public class login extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(login.this, "Account does not exist. Please register a account.", Toast.LENGTH_LONG).show();
+
                         }
                     }
             }

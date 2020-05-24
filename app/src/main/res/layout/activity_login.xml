@@ -5,20 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg"
+    android:background="@drawable/bgstart"
     tools:context=".login">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"
-            android:onClick="back"
-            android:src="@drawable/back"/>
+
 
         <TextView
             android:id="@+id/login"
@@ -34,6 +28,7 @@
             android:layout_below="@+id/login"
             android:layout_width="250dp"
             android:layout_marginTop="80dp"
+            android:background="@drawable/edittextbackground"
             android:layout_height="wrap_content"
             android:hint="Username"
             android:layout_centerHorizontal="true"/>
@@ -43,6 +38,7 @@
             android:layout_below="@+id/etName"
             android:layout_marginTop="20dp"
             android:layout_width="250dp"
+            android:background="@drawable/edittextbackground"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:layout_centerHorizontal="true"/>

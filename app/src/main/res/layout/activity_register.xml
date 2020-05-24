@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/bgstart"
     tools:context=".register">
 
 
@@ -13,13 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"
-            android:onClick="back"
-            android:src="@drawable/back"/>
+
 
         <TextView
             android:id="@+id/register"
@@ -36,6 +30,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/register"
+            android:background="@drawable/edittextbackground"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             android:hint="Username"
@@ -45,6 +40,7 @@
             android:id="@+id/etPass"
             android:layout_below="@+id/etName"
             android:layout_marginTop="20dp"
+            android:background="@drawable/edittextbackground"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -55,6 +51,7 @@
             android:layout_below="@+id/etPass"
             android:layout_marginTop="20dp"
             android:layout_width="250dp"
+            android:background="@drawable/edittextbackground"
             android:layout_height="wrap_content"
             android:hint="Contact Number"
             android:layout_centerHorizontal="true"/>

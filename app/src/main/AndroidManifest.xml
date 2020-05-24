@@ -9,11 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Shopping"></activity>
+        <activity android:name=".youOweEdit"></activity>
+        <activity android:name=".ShopEditActivity" />
+        <activity android:name=".FoodEditActivity" />
+        <activity android:name=".totalSpendStats" />
+        <activity android:name=".youBorrow" />
+        <activity android:name=".youOwe" />
+        <activity android:name=".Transport" />
+        <activity android:name=".Food" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Shopping" />
         <activity android:name=".startpage" />
-        <activity android:name=".login" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".register" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

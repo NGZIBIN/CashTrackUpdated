@@ -2,12 +2,19 @@ package com.example.cashtrack;
 
 import java.io.Serializable;
 
-public class ShoppingAdapter implements Serializable {
-
+public class TransportAdapter implements Serializable {
     private int id;
     private String desc;
     private int cost;
     private String date;
+
+
+    public TransportAdapter(int id, String desc, int cost, String date) {
+        this.id = id;
+        this.desc = desc;
+        this.cost = cost;
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -19,6 +26,10 @@ public class ShoppingAdapter implements Serializable {
 
     public int getCost() {
         return cost;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public void setId(int id) {
@@ -34,17 +45,6 @@ public class ShoppingAdapter implements Serializable {
     }
 
     public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public ShoppingAdapter(int id, String desc, int cost, String date) {
-        this.id = id;
-        this.desc = desc;
-        this.cost = cost;
         this.date = date;
     }
 }

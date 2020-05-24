@@ -25,80 +25,68 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Shopping extends AppCompatActivity {
-TextView totalCost;
-ListView lvData;
-SQLiteDatabase db;
-ShoppingDBHelper shopDB;
-Cursor cursor;
-ArrayList<Shoppings> al;
-ListAdapter listAdapter;
+public class youOwe extends AppCompatActivity {
+
+    ListView lvData;
+    SQLiteDatabase db;
+    youOweDBHelper oweDB;
+    Cursor cursor;
+    youOweListAdapter listAdapter;
+    ArrayList<youOwes> al;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping);
-
+        setContentView(R.layout.activity_you_owe);
         lvData = findViewById(R.id.lvData);
-        totalCost = findViewById(R.id.totalCost);
 
-        int total = 0;
 
-        ShoppingDBHelper helperShop = new ShoppingDBHelper(Shopping.this);
-        ArrayList<Shoppings> transShop = helperShop.getAllData();
-        for(int i = 0; i < transShop.size(); i ++){
-            int shopCost = transShop.get(i).getCost();
-            total = shopCost + total;
-        }
-        String totalString = String.valueOf(total);
-        totalCost.setText(totalString);
-
-        shopDB = new ShoppingDBHelper(getApplicationContext());
-        db = shopDB.getReadableDatabase();
-        cursor = shopDB.getAllDataForList();
-        listAdapter = new ListAdapter(getApplicationContext(), R.layout.row_layout, al);
+        oweDB = new youOweDBHelper(getApplicationContext());
+        db = oweDB.getReadableDatabase();
+        cursor = oweDB.getAllDataForList();
+        listAdapter = new youOweListAdapter(getApplicationContext(), R.layout.row_layout,al);
         lvData.setAdapter(listAdapter);
         if(cursor.moveToFirst()){
             do{
-                String desc, date;
+                String desc, date, name;
                 Integer id, cost;
                 id = cursor.getInt(0);
                 desc = cursor.getString(1);
-                cost = cursor.getInt(2);
-                date = cursor.getString(3);
+                name = cursor.getString(2);
+                cost = cursor.getInt(3);
+                date = cursor.getString(4);
 
 
 
-                Shoppings shoppingadapter = new Shoppings(id, desc, cost, date);
-                listAdapter.add(shoppingadapter);
-
+                youOwes youOweAdapter = new youOwes(id, name, desc, cost, date);
+                listAdapter.add(youOweAdapter);
+                listAdapter.notifyDataSetChanged();
 
             }
             while (cursor.moveToNext());
         }
-
-        al = new ArrayList<Shoppings>();
-        final ArrayList<Shoppings> shop = shopDB.getAllData();
+        al = new ArrayList<youOwes>();
+        final ArrayList<youOwes> youOwes = oweDB.getAllData();
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Shoppings data = shop.get(i);
-                Intent intent = new Intent(Shopping.this, ShopEditActivity.class);
+                youOwes data = youOwes.get(i);
+                Intent intent = new Intent(youOwe.this, youOweEdit.class);
                 intent.putExtra("data", data);
-                startActivityForResult(intent, 8);
+                startActivityForResult(intent, 7);
             }
         });
 
 
     }
-
-
     public void addDialog(View view){
         LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewDialog = inflater.inflate(R.layout.dialog, null);
+        View viewDialog = inflater.inflate(R.layout.owe_dialog, null);
 
         final EditText etInputDesc = viewDialog.findViewById(R.id.shopDesc);
         final EditText etInputCost = viewDialog.findViewById(R.id.shopCost);
         final EditText etInputDate = viewDialog.findViewById(R.id.shopDate);
+        final EditText etInputName = viewDialog.findViewById(R.id.oweName);
 
         final ImageView btnDatePicker = viewDialog.findViewById(R.id.btnDate);
 
@@ -117,7 +105,7 @@ ListAdapter listAdapter;
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog myDateDialog = new DatePickerDialog(Shopping.this,
+                DatePickerDialog myDateDialog = new DatePickerDialog(youOwe.this,
                         myDateListener, mYear, mMonth, mDay);
                 myDateDialog.show();
 
@@ -128,65 +116,61 @@ ListAdapter listAdapter;
         String cDate = date.format(new Date());
         etInputDate.setText(cDate);
 
-        final AlertDialog myBuilder = new AlertDialog.Builder(Shopping.this)
-     .setView(viewDialog)
-        .setTitle("Add New")
-        .setCancelable(false)
-        .setPositiveButton("Add", null)
-        .setNegativeButton("Cancel", null).show();
+        final AlertDialog myBuilder = new AlertDialog.Builder(youOwe.this).setView(viewDialog)
+                .setTitle("Add New")
+                .setCancelable(false)
+                .setPositiveButton("Add", null)
+                .setNegativeButton("Cancel", null).show();
+
         Button positiveButton = myBuilder.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int total = 0;
+
                 String addDesc = etInputDesc.getText().toString();
                 String addCost = etInputCost.getText().toString();
                 String addDate = etInputDate.getText().toString();
-
+                String addName = etInputName.getText().toString();
+                int intCost = Integer.parseInt(addCost);
 
                 if(addDesc.isEmpty()){
                     etInputDesc.setError("Please enter a Description");
-
                 }
                 else if(addCost.isEmpty()){
                     etInputCost.setError("PLease enter a Cost");
-
                 }
                 else if(addDate.isEmpty()){
                     etInputDate.setError("Please enter a Date");
-
-
+                }
+                else if(addName.isEmpty()){
+                    etInputName.setError("Please enter a Name");
                 }
                 else{
-                    ShoppingDBHelper helper = new ShoppingDBHelper(Shopping.this);
-                    int intCost = Integer.parseInt(addCost);
-                    long row = helper.insertData(addDesc, intCost, addDate);
+                    youOweDBHelper helper = new youOweDBHelper(youOwe.this);
+
+                    long row = helper.insertData1(addDesc, addName, intCost, addDate);
                     helper.close();
 
                     if(row != -1){
-
-                        Toast.makeText(Shopping.this,"Added Successfully!", Toast.LENGTH_LONG).show();
-                        shopDB = new ShoppingDBHelper(getApplicationContext());
-                        db = shopDB.getReadableDatabase();
-                        cursor = shopDB.getAllDataForList();
-                        listAdapter = new ListAdapter(getApplicationContext(), R.layout.row_layout,al);
+                        Toast.makeText(youOwe.this,"Added Successfully!", Toast.LENGTH_LONG).show();
+                        oweDB = new youOweDBHelper(getApplicationContext());
+                        db = oweDB.getReadableDatabase();
+                        cursor = oweDB.getAllDataForList();
+                        listAdapter = new youOweListAdapter(getApplicationContext(), R.layout.row_layout,al);
                         lvData.setAdapter(listAdapter);
                         if(cursor.moveToFirst()){
                             do{
-                                String desc, date;
+                                String desc, date, name;
                                 Integer id, cost;
                                 id = cursor.getInt(0);
                                 desc = cursor.getString(1);
-                                cost = cursor.getInt(2);
-                                date = cursor.getString(3);
+                                name = cursor.getString(2);
+                                cost = cursor.getInt(3);
+                                date = cursor.getString(4);
 
 
-                                total += intCost;
-                                String totalString = String.valueOf(total);
-                                totalCost.setText(totalString);
-
-                                Shoppings shoppingadapter = new Shoppings(id, desc, cost, date);
-                                listAdapter.add(shoppingadapter);
+                                youOwes youOweAdapter = new youOwes(id, name, desc, cost, date);
+                                listAdapter.add(youOweAdapter);
                                 listAdapter.notifyDataSetChanged();
 
                             }
@@ -199,42 +183,11 @@ ListAdapter listAdapter;
             }
         });
 
-
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 8) {
-            shopDB = new ShoppingDBHelper(getApplicationContext());
-            db = shopDB.getReadableDatabase();
-            cursor = shopDB.getAllDataForList();
-            listAdapter = new ListAdapter(getApplicationContext(), R.layout.row_layout, al);
-            lvData.setAdapter(listAdapter);
-            if(cursor.moveToFirst()){
-                do{
-                    String desc, date;
-                    Integer id, cost;
-                    id = cursor.getInt(0);
-                    desc = cursor.getString(1);
-                    cost = cursor.getInt(2);
-                    date = cursor.getString(3);
-
-
-
-                    Shoppings shoppings = new Shoppings(id, desc, cost, date);
-                    listAdapter.add(shoppings);
-                    listAdapter.notifyDataSetChanged();
-
-                }
-                while (cursor.moveToNext());
-            }
-            listAdapter.notifyDataSetChanged();
-        }
-
-    }
-
+//    public void back(View view){
+//
+//        finish();
+//    }
     public void refreshActivity() {
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -247,7 +200,5 @@ ListAdapter listAdapter;
         refreshActivity();
         super.onBackPressed();
     }
-
-
-
 }
+

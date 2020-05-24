@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgstart"
     tools:context=".startpage">
 
     <RelativeLayout
@@ -32,7 +33,7 @@
             android:layout_below="@+id/tvName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:background="#8AB3B9"
+            android:background="#BDA47E"
             android:text="REGISTER" />
 
         <Button
@@ -42,7 +43,7 @@
             android:layout_below="@+id/btnRegister"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="#8AB3B9"
+            android:background="#BDA47E"
             android:text="LOGIN" />
     </RelativeLayout>
 

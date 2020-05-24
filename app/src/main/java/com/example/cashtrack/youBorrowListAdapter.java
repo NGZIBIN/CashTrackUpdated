@@ -13,20 +13,18 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapter extends ArrayAdapter {
+public class youBorrowListAdapter extends ArrayAdapter {
     List list = new ArrayList();
-
-    public ListAdapter(@NonNull Context context, int resource, ArrayList<Shoppings> al) {
+    public youBorrowListAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
-
     static class LayoutHandler{
-        TextView DESC, COST, DATE;
+        TextView DESC, NAME, COST, DATE;
     }
 
     @Override
     public void add(@Nullable Object object) {
-//        super.add(object);
+        super.add(object);
         list.add(object);
     }
 
@@ -45,27 +43,27 @@ public class ListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        LayoutHandler layoutHandler;
+        youBorrowListAdapter.LayoutHandler layoutHandler;
         if(row == null){
-            LayoutInflater layoutInflater =(LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = layoutInflater.inflate(R.layout.row_layout,parent,false);
-            layoutHandler = new LayoutHandler();
+            LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = layoutInflater.inflate(R.layout.row_owe_layout,parent,false);
+            layoutHandler = new youBorrowListAdapter.LayoutHandler();
             layoutHandler.DESC=(TextView)row.findViewById(R.id.desc);
+            layoutHandler.NAME = (TextView)row.findViewById(R.id.name);
             layoutHandler.COST=(TextView)row.findViewById(R.id.cost);
             layoutHandler.DATE=(TextView)row.findViewById(R.id.date);
             row.setTag(layoutHandler);
         }
         else{
-            layoutHandler = (LayoutHandler) row.getTag();
+            layoutHandler = (youBorrowListAdapter.LayoutHandler) row.getTag();
         }
-
-        Shoppings shoppingAdapter = (Shoppings)this.getItem(position);
-        layoutHandler.DESC.setText(shoppingAdapter.getDesc());
-        layoutHandler.COST.setText(Integer.toString(shoppingAdapter.getCost()));
-        layoutHandler.DATE.setText(shoppingAdapter.getDate());
+        youBorrowAdapter youBorrowAdapter = (youBorrowAdapter) this.getItem(position);
+        layoutHandler.NAME.setText(youBorrowAdapter.getDesc());
+        layoutHandler.DESC.setText(youBorrowAdapter.getName());
+        layoutHandler.COST.setText(Integer.toString(youBorrowAdapter.getCost()));
+        layoutHandler.DATE.setText(youBorrowAdapter.getDate());
 
 
         return row;
-
     }
 }

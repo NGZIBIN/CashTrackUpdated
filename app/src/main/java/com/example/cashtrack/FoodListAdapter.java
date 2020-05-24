@@ -13,10 +13,11 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapter extends ArrayAdapter {
+public class FoodListAdapter extends ArrayAdapter {
     List list = new ArrayList();
 
-    public ListAdapter(@NonNull Context context, int resource, ArrayList<Shoppings> al) {
+
+    public FoodListAdapter(@NonNull Context context, int resource, ArrayList<Foods> al) {
         super(context, resource);
     }
 
@@ -47,7 +48,7 @@ public class ListAdapter extends ArrayAdapter {
         View row = convertView;
         LayoutHandler layoutHandler;
         if(row == null){
-            LayoutInflater layoutInflater =(LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.row_layout,parent,false);
             layoutHandler = new LayoutHandler();
             layoutHandler.DESC=(TextView)row.findViewById(R.id.desc);
@@ -58,14 +59,12 @@ public class ListAdapter extends ArrayAdapter {
         else{
             layoutHandler = (LayoutHandler) row.getTag();
         }
-
-        Shoppings shoppingAdapter = (Shoppings)this.getItem(position);
-        layoutHandler.DESC.setText(shoppingAdapter.getDesc());
-        layoutHandler.COST.setText(Integer.toString(shoppingAdapter.getCost()));
-        layoutHandler.DATE.setText(shoppingAdapter.getDate());
+        Foods foodListAdapter = (Foods)this.getItem(position);
+        layoutHandler.DESC.setText(foodListAdapter.getDesc());
+        layoutHandler.COST.setText(Integer.toString(foodListAdapter.getCost()));
+        layoutHandler.DATE.setText(foodListAdapter.getDate());
 
 
         return row;
-
     }
 }
