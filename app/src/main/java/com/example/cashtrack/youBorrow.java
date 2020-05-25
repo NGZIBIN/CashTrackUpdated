@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,6 +29,7 @@ public class youBorrow extends AppCompatActivity {
     SQLiteDatabase db;
     youBorrowDBHelper borrowDB;
     Cursor cursor;
+    ArrayList<youBorrows> al;
     youBorrowListAdapter listAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class youBorrow extends AppCompatActivity {
         borrowDB = new youBorrowDBHelper(getApplicationContext());
         db = borrowDB.getReadableDatabase();
         cursor = borrowDB.getAllDataForList();
-        listAdapter = new youBorrowListAdapter(getApplicationContext(), R.layout.row_layout);
+        listAdapter = new youBorrowListAdapter(getApplicationContext(), R.layout.row_layout,al);
         lvData.setAdapter(listAdapter);
         if(cursor.moveToFirst()){
             do{
@@ -54,13 +56,24 @@ public class youBorrow extends AppCompatActivity {
 
 
 
-                youBorrowAdapter youBorrowAdapter = new youBorrowAdapter(id, name, desc, cost, date);
+                youBorrows youBorrowAdapter = new youBorrows(id, name, desc, cost, date);
                 listAdapter.add(youBorrowAdapter);
                 listAdapter.notifyDataSetChanged();
 
             }
             while (cursor.moveToNext());
         }
+        al = new ArrayList<youBorrows>();
+        final ArrayList<youBorrows> youBorrows = borrowDB.getAllData();
+        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                youBorrows data = youBorrows.get(i);
+                Intent intent = new Intent(youBorrow.this, youBorrowEdit.class);
+                intent.putExtra("data", data);
+                startActivityForResult(intent, 6);
+            }
+        });
 
     }
 
@@ -104,6 +117,7 @@ public class youBorrow extends AppCompatActivity {
         AlertDialog myBuilder = new AlertDialog.Builder(youBorrow.this).setView(viewDialog)
         .setTitle("Add New")
         .setCancelable(false)
+                .setNegativeButton("Cancel", null)
         .setPositiveButton("Add", null).show();
 
         Button positiveButton = myBuilder.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -140,7 +154,7 @@ public class youBorrow extends AppCompatActivity {
                         borrowDB = new youBorrowDBHelper(getApplicationContext());
                         db = borrowDB.getReadableDatabase();
                         cursor = borrowDB.getAllDataForList();
-                        listAdapter = new youBorrowListAdapter(getApplicationContext(), R.layout.row_layout);
+                        listAdapter = new youBorrowListAdapter(getApplicationContext(), R.layout.row_layout,al);
                         lvData.setAdapter(listAdapter);
                         if(cursor.moveToFirst()){
                             do{
@@ -153,7 +167,7 @@ public class youBorrow extends AppCompatActivity {
                                 date = cursor.getString(4);
 
 
-                                youBorrowAdapter youBorrowAdapter = new youBorrowAdapter(id, name, desc, cost, date);
+                                youBorrows youBorrowAdapter = new youBorrows(id, name, desc, cost, date);
                                 listAdapter.add(youBorrowAdapter);
                                 listAdapter.notifyDataSetChanged();
 
@@ -167,6 +181,40 @@ public class youBorrow extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 6) {
+            borrowDB = new youBorrowDBHelper(getApplicationContext());
+            db = borrowDB.getReadableDatabase();
+            cursor = borrowDB.getAllDataForList();
+            listAdapter = new youBorrowListAdapter(getApplicationContext(), R.layout.row_layout, al);
+            lvData.setAdapter(listAdapter);
+            if(cursor.moveToFirst()){
+                do{
+                    String desc, date, name;
+                    Integer id, cost;
+                    id = cursor.getInt(0);
+                    desc = cursor.getString(1);
+                    name = cursor.getString(2);
+                    cost = cursor.getInt(3);
+                    date = cursor.getString(4);
+
+
+
+                    youBorrows youborrow = new youBorrows(id, desc,name, cost, date);
+                    listAdapter.add(youborrow);
+                    listAdapter.notifyDataSetChanged();
+
+                }
+                while (cursor.moveToNext());
+            }
+            listAdapter.notifyDataSetChanged();
+        }
 
     }
     public void refreshActivity() {

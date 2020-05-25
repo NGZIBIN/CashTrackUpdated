@@ -2,14 +2,14 @@ package com.example.cashtrack;
 
 import java.io.Serializable;
 
-public class youBorrowAdapter implements Serializable {
+public class youBorrows implements Serializable {
     private int id;
     private String desc;
     private String name;
     private int cost;
     private String date;
 
-    public youBorrowAdapter(int id, String desc, String name, int cost, String date) {
+    public youBorrows(int id, String desc, String name, int cost, String date) {
         this.id = id;
         this.desc = desc;
         this.name = name;

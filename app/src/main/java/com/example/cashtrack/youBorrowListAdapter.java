@@ -15,7 +15,7 @@ import java.util.List;
 
 public class youBorrowListAdapter extends ArrayAdapter {
     List list = new ArrayList();
-    public youBorrowListAdapter(@NonNull Context context, int resource) {
+    public youBorrowListAdapter(@NonNull Context context, int resource, ArrayList<youBorrows> al) {
         super(context, resource);
     }
     static class LayoutHandler{
@@ -57,7 +57,7 @@ public class youBorrowListAdapter extends ArrayAdapter {
         else{
             layoutHandler = (youBorrowListAdapter.LayoutHandler) row.getTag();
         }
-        youBorrowAdapter youBorrowAdapter = (youBorrowAdapter) this.getItem(position);
+        youBorrows youBorrowAdapter = (youBorrows) this.getItem(position);
         layoutHandler.NAME.setText(youBorrowAdapter.getDesc());
         layoutHandler.DESC.setText(youBorrowAdapter.getName());
         layoutHandler.COST.setText(Integer.toString(youBorrowAdapter.getCost()));

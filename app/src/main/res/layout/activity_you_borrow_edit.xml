@@ -3,13 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bgstart"
     android:weightSum="10"
-    tools:context=".youOweEdit">
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".youBorrowEdit">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bell"
+            android:onClick="goMessage"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="50dp"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="10dp"
             android:textColor="#070707"
             android:text="Description"/>
 
@@ -112,6 +125,5 @@
             android:text="Delete" />
 
     </RelativeLayout>
-
 
 </LinearLayout>

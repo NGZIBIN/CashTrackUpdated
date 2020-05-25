@@ -42,6 +42,27 @@ public class youOweDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_OWE);
         onCreate(db);
     }
+    public int updateInfo(youOwes data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_DESC, data.getDesc());
+        values.put(COLUMN_DATE, data.getDate());
+        values.put(COLUMN_COST, data.getCost());
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(data.getId())};
+        int result = db.update(TABLE_OWE, values, condition, args);
+        db.close();
+        return result;
+    }
+
+    public int deleteInfo(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(id)};
+        int result = db.delete(TABLE_OWE, condition, args);
+        db.close();
+        return result;
+    }
 
     public long insertData1(String description, String num, int cost, String date) {
         SQLiteDatabase db = this.getWritableDatabase();

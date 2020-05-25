@@ -69,8 +69,8 @@ public class youBorrowDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<youBorrowAdapter> getAllData() {
-        ArrayList<youBorrowAdapter> transData = new ArrayList<youBorrowAdapter>();
+    public ArrayList<youBorrows> getAllData() {
+        ArrayList<youBorrows> transData = new ArrayList<youBorrows>();
 
         String selectQuery = "SELECT " + COLUMN_ID + ","
                 + COLUMN_DESC + " , "
@@ -87,7 +87,7 @@ public class youBorrowDBHelper extends SQLiteOpenHelper {
                 String name = cursor.getString(2);
                 int cost = cursor.getInt(3);
                 String date = cursor.getString(4);
-                youBorrowAdapter obj = new youBorrowAdapter(id,desc,name,cost,date);
+                youBorrows obj = new youBorrows(id,desc,name,cost,date);
                 transData.add(obj);
             } while (cursor.moveToNext());
         }
@@ -110,4 +110,26 @@ public class youBorrowDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+
+    public int updateInfo(youBorrows data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_DESC, data.getDesc());
+        values.put(COLUMN_DATE, data.getDate());
+        values.put(COLUMN_COST, data.getCost());
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(data.getId())};
+        int result = db.update(TABLE_BORROW, values, condition, args);
+        db.close();
+        return result;
+    }
+
+    public int deleteInfo(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(id)};
+        int result = db.delete(TABLE_BORROW, condition, args);
+        db.close();
+        return result;
+    }
 }

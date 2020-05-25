@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         youBorrowDBHelper borrowHelper = new youBorrowDBHelper(MainActivity.this);
-        ArrayList<youBorrowAdapter> borrowData = borrowHelper.getAllData();
+        ArrayList<youBorrows> borrowData = borrowHelper.getAllData();
         for(int i = 0; i < borrowData.size(); i ++){
             int borrowCost = borrowData.get(i).getCost();
             borrowTot = borrowCost + borrowTot;

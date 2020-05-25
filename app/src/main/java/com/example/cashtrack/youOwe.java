@@ -184,10 +184,39 @@ public class youOwe extends AppCompatActivity {
         });
 
     }
-//    public void back(View view){
-//
-//        finish();
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 7) {
+            oweDB = new youOweDBHelper(getApplicationContext());
+            db = oweDB.getReadableDatabase();
+            cursor = oweDB.getAllDataForList();
+            listAdapter = new youOweListAdapter(getApplicationContext(), R.layout.row_layout, al);
+            lvData.setAdapter(listAdapter);
+            if(cursor.moveToFirst()){
+                do{
+                    String desc, date, name;
+                    Integer id, cost;
+                    id = cursor.getInt(0);
+                    desc = cursor.getString(1);
+                    name = cursor.getString(2);
+                    cost = cursor.getInt(3);
+                    date = cursor.getString(4);
+
+
+
+                    youOwes youowe = new youOwes(id, desc,name, cost, date);
+                    listAdapter.add(youowe);
+                    listAdapter.notifyDataSetChanged();
+
+                }
+                while (cursor.moveToNext());
+            }
+            listAdapter.notifyDataSetChanged();
+        }
+
+    }
     public void refreshActivity() {
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
