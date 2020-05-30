@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ShoppingDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "shopping";
     private static final String TABLE_SHOP = "shop";
     private static final String COLUMN_ID = "_id";

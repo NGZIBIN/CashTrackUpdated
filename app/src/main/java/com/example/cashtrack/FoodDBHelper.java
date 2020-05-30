@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class FoodDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "foodCost";
     private static final String TABLE_FOOD = "food";
     private static final String COLUMN_ID = "_id";

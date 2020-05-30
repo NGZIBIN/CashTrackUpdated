@@ -102,43 +102,11 @@ public class MainActivity extends AppCompatActivity {
         Intent ans = getIntent();
         String name = ans.getStringExtra("username");
         String pass = ans.getStringExtra("pass");
-        FoodDBHelper helper = new FoodDBHelper(MainActivity.this);
-        ArrayList<Foods> data = helper.getAllData();
-        for(int i = 0; i < data.size(); i ++){
-            int foodCost = data.get(i).getCost();
-            totalFood = foodCost + totalFood;
-        }
 
-
-        TransportDBHelper helperTrans = new TransportDBHelper(MainActivity.this);
-        ArrayList<Transports> transData = helperTrans.getAllData();
-        for(int i = 0; i < transData.size(); i ++){
-            int transCost = transData.get(i).getCost();
-            totalTrans = transCost + totalTrans;
-        }
-
-        ShoppingDBHelper helperShop = new ShoppingDBHelper(MainActivity.this);
-        ArrayList<Shoppings> transShop = helperShop.getAllData();
-        for(int i = 0; i < transShop.size(); i ++){
-            int shopCost = transShop.get(i).getCost();
-            totalShop = shopCost + totalShop;
-        }
-
-        total = totalFood + totalShop + totalTrans;
-        String totalString = String.valueOf(total);
-        totalCost.setText(totalString);
-
-
-        String oweString = String.valueOf(oweTot);
-        oweTotal.setText(oweString);
-
-
-        String borrowString = String.valueOf(borrowTot);
-        borrowTotal.setText(borrowString);
         Intent intent = new Intent(MainActivity.this, Profile.class);
         intent.putExtra("username", name);
         intent.putExtra("pass", pass);
-        intent.putExtra("total", totalString);
+
         startActivity(intent);
     }
 

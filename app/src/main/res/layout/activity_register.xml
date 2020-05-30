@@ -50,6 +50,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:inputType="textPassword"
             android:layout_centerHorizontal="true"/>
 
         <EditText
@@ -59,6 +60,7 @@
             android:layout_width="250dp"
             android:background="@drawable/edittextbackground"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:hint="Contact Number"
             android:layout_centerHorizontal="true"/>
 
