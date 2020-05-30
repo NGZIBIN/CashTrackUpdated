@@ -18,6 +18,7 @@ public class login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("CashTrack Login");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -55,6 +56,7 @@ public class login extends AppCompatActivity {
                         if(name.equals(dbName) && (pass.equals(dbPass))){
                             Intent intent = new Intent(getBaseContext(), MainActivity.class);
                             intent.putExtra("username", name);
+                            intent.putExtra("pass", pass);
                             startActivity(intent);
                             Toast.makeText(login.this, "Welcome back " + name, Toast.LENGTH_LONG).show();
                         }
@@ -64,10 +66,10 @@ public class login extends AppCompatActivity {
                         else if(name != (dbName) && (pass.equals(dbPass))){
                             Toast.makeText(login.this, "Wrong Username Entered", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(login.this, "Account does not exist. Please register a account.", Toast.LENGTH_LONG).show();
-
-                        }
+//                        else{
+//                            Toast.makeText(login.this, "Account does not exist. Please register a account.", Toast.LENGTH_LONG).show();
+//
+//                        }
                     }
             }
         }

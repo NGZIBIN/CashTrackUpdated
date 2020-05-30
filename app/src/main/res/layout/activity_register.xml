@@ -13,17 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/smallicon2"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="30dp"/>
 
         <TextView
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="125dp"
+            android:fontFamily="@font/montserrat"
             android:text="Register"
             android:textColor="#070707"
-            android:textSize="40dp"/>
+            android:textSize="36dp"/>
 
         <EditText
             android:id="@+id/etName"
@@ -32,7 +38,7 @@
             android:layout_below="@+id/register"
             android:background="@drawable/edittextbackground"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:hint="Username"
             android:textColor="#000C0B0B" />
 
@@ -62,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/etNum"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:background="#8AB3B9"
+            android:layout_marginTop="65dp"
+            android:background="#F3EBDF"
             android:text="REGISTER" />
 
 

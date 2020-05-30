@@ -20,6 +20,7 @@ public class oweMessageNoti extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Message");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_message_noti);
 
@@ -36,7 +37,7 @@ public class oweMessageNoti extends AppCompatActivity {
         String cost = i.getStringExtra("cost");
         String desc = i.getStringExtra("desc");
 
-        String message = "Hello, " + name + " you borrow $" + cost + " on " + date + " from me for " + desc + ". Please return back to me as soon as you can. Thank you!";
+        String message = "Hello, " + name + " you borrowed $" + cost + " on " + date + " from me for " + desc + ". Please return back to me as soon as you can. Thank you!";
 
         etMsg.setText(message);
     }

@@ -16,6 +16,7 @@ public class register extends AppCompatActivity {
     Button btnRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Register");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -72,6 +73,7 @@ public class register extends AppCompatActivity {
                         }
                     }
                 }
+                finish();
             }
         });
 

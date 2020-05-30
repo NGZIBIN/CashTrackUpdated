@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -33,26 +33,29 @@ public class Transport extends AppCompatActivity {
     SQLiteDatabase db;
     TransportDBHelper transDB;
     Cursor cursor;
-    ArrayList<TransportAdapter> al;
+    ArrayList<Transports> al;
     TransportListAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Transport");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport);
 
         lvData = findViewById(R.id.lvData);
-//        btnDelete = findViewById(R.id.btnDelete);
         transCost = findViewById(R.id.totalCost);
+
         int total = 0;
         TransportDBHelper helperTrans = new TransportDBHelper(Transport.this);
-        ArrayList<TransportAdapter> transData = helperTrans.getAllData();
+        ArrayList<Transports> transData = helperTrans.getAllData();
         for(int i = 0; i < transData.size(); i ++){
             int transCost = transData.get(i).getCost();
             total = transCost + total;
         }
         String totalString = String.valueOf(total);
         transCost.setText(totalString);
+
+
         transDB = new TransportDBHelper(getApplicationContext());
         db = transDB.getReadableDatabase();
         cursor = transDB.getAllDataForList();
@@ -69,13 +72,24 @@ public class Transport extends AppCompatActivity {
 
 
 
-                TransportAdapter transportAdapter = new TransportAdapter(id, desc, cost, date);
+                Transports transportAdapter = new Transports(id, desc, cost, date);
                 listAdapter.add(transportAdapter);
 
 
             }
             while (cursor.moveToNext());
         }
+        al = new ArrayList<Transports>();
+        final ArrayList<Transports> transport = transDB.getAllData();
+        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Transports data = transport.get(i);
+                Intent intent = new Intent(Transport.this, TransEditActivity.class);
+                intent.putExtra("data", data);
+                startActivityForResult(intent, 5);
+            }
+        });
     }
 
     public void addDialog(View view){
@@ -174,7 +188,7 @@ public class Transport extends AppCompatActivity {
                                 String totalString = String.valueOf(total);
                                 transCost.setText(totalString);
 
-                                TransportAdapter transportAdapter = new TransportAdapter(id, desc, cost, date);
+                                Transports transportAdapter = new Transports(id, desc, cost, date);
                                 listAdapter.add(transportAdapter);
                                 listAdapter.notifyDataSetChanged();
 
@@ -187,6 +201,48 @@ public class Transport extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int total = 0;
+        TransportDBHelper helperTrans = new TransportDBHelper(Transport.this);
+        ArrayList<Transports> transData = helperTrans.getAllData();
+        for(int i = 0; i < transData.size(); i ++){
+            int transCost = transData.get(i).getCost();
+            total = transCost + total;
+        }
+        String totalString = String.valueOf(total);
+        transCost.setText(totalString);
+        if (resultCode == RESULT_OK && requestCode == 5) {
+            transDB = new TransportDBHelper(getApplicationContext());
+            db = transDB.getReadableDatabase();
+            cursor = transDB.getAllDataForList();
+            listAdapter = new TransportListAdapter(getApplicationContext(), R.layout.row_layout, al);
+            lvData.setAdapter(listAdapter);
+            if(cursor.moveToFirst()){
+                do{
+                    String desc, date;
+                    Integer id, cost;
+                    id = cursor.getInt(0);
+                    desc = cursor.getString(1);
+                    cost = cursor.getInt(2);
+                    date = cursor.getString(3);
+
+
+
+                    Transports trans = new Transports(id, desc, cost, date);
+                    listAdapter.add(trans);
+                    listAdapter.notifyDataSetChanged();
+
+                }
+                while (cursor.moveToNext());
+            }
+            listAdapter.notifyDataSetChanged();
+        }
+
     }
 
     public void refreshActivity() {

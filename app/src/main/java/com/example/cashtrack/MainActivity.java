@@ -15,8 +15,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferencesConfig sharedPreferencesConfig;
     Button btnLogin, btnRegister;
     TextView username, totalCost, borrowTotal, oweTotal;
-    SQLiteDatabase dbFood, dbShop, dbTransport;
-    FoodDBHelper foodDB;
     int total = 0;
     int totalFood = 0;
     int totalTrans = 0;
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     int oweTot = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Homepage");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferencesConfig = new SharedPreferencesConfig(getApplicationContext());
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         TransportDBHelper helperTrans = new TransportDBHelper(MainActivity.this);
-        ArrayList<TransportAdapter> transData = helperTrans.getAllData();
+        ArrayList<Transports> transData = helperTrans.getAllData();
         for(int i = 0; i < transData.size(); i ++){
             int transCost = transData.get(i).getCost();
             totalTrans = transCost + totalTrans;
@@ -92,72 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onRestart() {
-//        super.onRestart();
-//        int total = 0;
-//        int totalFood = 0;
-//        int totalTrans = 0;
-//        int totalShop= 0;
-//        int borrowTot = 0;
-//        int oweTot = 0;
 
-//        youOweDBHelper oweHelper = new youOweDBHelper(MainActivity.this);
-//        ArrayList<youOweAdapter> oweData = oweHelper.getAllData();
-//        for(int i = 0; i < oweData.size(); i ++){
-//            int oweCost = oweData.get(i).getCost();
-//            oweTot = oweCost + oweTot;
-//        }
-//
-//
-//
-//        youBorrowDBHelper borrowHelper = new youBorrowDBHelper(MainActivity.this);
-//        ArrayList<youBorrowAdapter> borrowData = borrowHelper.getAllData();
-//        for(int i = 0; i < borrowData.size(); i ++){
-//            int borrowCost = borrowData.get(i).getCost();
-//            borrowTot = borrowCost + borrowTot;
-//        }
-//
-//
-//        FoodDBHelper helper = new FoodDBHelper(MainActivity.this);
-//        ArrayList<FoodAdapter> data = helper.getAllData();
-//        for(int i = 0; i < data.size(); i ++){
-//            int foodCost = data.get(i).getCost();
-//            totalFood = foodCost + totalFood;
-//        }
-//
-//
-//        TransportDBHelper helperTrans = new TransportDBHelper(MainActivity.this);
-//        ArrayList<TransportAdapter> transData = helperTrans.getAllData();
-//        for(int i = 0; i < transData.size(); i ++){
-//            int transCost = transData.get(i).getCost();
-//            totalTrans = transCost + totalTrans;
-//        }
-//
-//        ShoppingDBHelper helperShop = new ShoppingDBHelper(MainActivity.this);
-//        ArrayList<ShoppingAdapter> transShop = helperShop.getAllData();
-//        for(int i = 0; i < transShop.size(); i ++){
-//            int shopCost = transShop.get(i).getCost();
-//            totalShop = shopCost + totalShop;
-//        }
-//
-//        total = totalFood + totalShop + totalTrans;
-//        String totalString = String.valueOf(total);
-//        totalCost.setText(totalString);
-//
-//
-//        String oweString = String.valueOf(oweTot);
-//        oweTotal.setText(oweString);
-//
-//
-//        String borrowString = String.valueOf(borrowTot);
-//        borrowTotal.setText(borrowString);
-//    }
-
-
-    public void back(View view){
-        finish();
-    }
 
     public void goShopping(View view){
         Intent intent = new Intent(MainActivity.this, Shopping.class);
@@ -167,8 +101,44 @@ public class MainActivity extends AppCompatActivity {
     public void goProfile(View view){
         Intent ans = getIntent();
         String name = ans.getStringExtra("username");
+        String pass = ans.getStringExtra("pass");
+        FoodDBHelper helper = new FoodDBHelper(MainActivity.this);
+        ArrayList<Foods> data = helper.getAllData();
+        for(int i = 0; i < data.size(); i ++){
+            int foodCost = data.get(i).getCost();
+            totalFood = foodCost + totalFood;
+        }
+
+
+        TransportDBHelper helperTrans = new TransportDBHelper(MainActivity.this);
+        ArrayList<Transports> transData = helperTrans.getAllData();
+        for(int i = 0; i < transData.size(); i ++){
+            int transCost = transData.get(i).getCost();
+            totalTrans = transCost + totalTrans;
+        }
+
+        ShoppingDBHelper helperShop = new ShoppingDBHelper(MainActivity.this);
+        ArrayList<Shoppings> transShop = helperShop.getAllData();
+        for(int i = 0; i < transShop.size(); i ++){
+            int shopCost = transShop.get(i).getCost();
+            totalShop = shopCost + totalShop;
+        }
+
+        total = totalFood + totalShop + totalTrans;
+        String totalString = String.valueOf(total);
+        totalCost.setText(totalString);
+
+
+        String oweString = String.valueOf(oweTot);
+        oweTotal.setText(oweString);
+
+
+        String borrowString = String.valueOf(borrowTot);
+        borrowTotal.setText(borrowString);
         Intent intent = new Intent(MainActivity.this, Profile.class);
         intent.putExtra("username", name);
+        intent.putExtra("pass", pass);
+        intent.putExtra("total", totalString);
         startActivity(intent);
     }
 

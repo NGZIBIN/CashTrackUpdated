@@ -15,6 +15,7 @@ public class ShopEditActivity extends AppCompatActivity {
     Shoppings data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Shopping Edit");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_edit);
         etCost = findViewById(R.id.etCost);

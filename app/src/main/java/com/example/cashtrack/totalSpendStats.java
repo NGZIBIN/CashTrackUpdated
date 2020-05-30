@@ -19,6 +19,7 @@ public class totalSpendStats extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Total Spend");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_total_spend_stats);
         Intent intent = getIntent();

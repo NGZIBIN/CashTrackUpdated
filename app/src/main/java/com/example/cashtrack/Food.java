@@ -37,6 +37,7 @@ public class Food extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Food");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
@@ -200,6 +201,15 @@ public class Food extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        int total = 0;
+        FoodDBHelper helper = new FoodDBHelper(Food.this);
+        ArrayList<Foods> data1 = helper.getAllData();
+        for(int i = 0; i < data1.size(); i ++){
+            int foodCost = data1.get(i).getCost();
+            total = foodCost + total;
+        }
+        String totalString = String.valueOf(total);
+        totalCost.setText(totalString);
         if (resultCode == RESULT_OK && requestCode == 9) {
             foodDB = new FoodDBHelper(getApplicationContext());
             db = foodDB.getReadableDatabase();

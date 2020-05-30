@@ -66,8 +66,8 @@ public class TransportDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<TransportAdapter> getAllData() {
-        ArrayList<TransportAdapter> transData = new ArrayList<TransportAdapter>();
+    public ArrayList<Transports> getAllData() {
+        ArrayList<Transports> transData = new ArrayList<Transports>();
 
         String selectQuery = "SELECT " + COLUMN_ID + ","
                 + COLUMN_DESC + " , "
@@ -82,7 +82,7 @@ public class TransportDBHelper extends SQLiteOpenHelper {
                 String desc = cursor.getString(1);
                 int cost = cursor.getInt(2);
                 String date = cursor.getString(3);
-                TransportAdapter obj = new TransportAdapter(id,desc,cost,date);
+                Transports obj = new Transports(id,desc,cost,date);
                 transData.add(obj);
             } while (cursor.moveToNext());
         }
@@ -101,6 +101,28 @@ public class TransportDBHelper extends SQLiteOpenHelper {
                 + COLUMN_DATE
                 + " FROM " + TABLE_TRANSPORT;
         Cursor result = db.rawQuery(selectQuery, null);
+        return result;
+    }
+
+    public int updateInfo(Transports data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_DESC, data.getDesc());
+        values.put(COLUMN_DATE, data.getDate());
+        values.put(COLUMN_COST, data.getCost());
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(data.getId())};
+        int result = db.update(TABLE_TRANSPORT, values, condition, args);
+        db.close();
+        return result;
+    }
+
+    public int deleteInfo(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String condition = COLUMN_ID + "= ?";
+        String[] args = {String.valueOf(id)};
+        int result = db.delete(TABLE_TRANSPORT, condition, args);
+        db.close();
         return result;
     }
 }

@@ -9,39 +9,35 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class youBorrowEdit extends AppCompatActivity {
-    EditText etCost, etDate, etDesc, etName;
+public class TransEditActivity extends AppCompatActivity {
+    EditText etCost, etDate, etDesc;
     Button btnUpdate, btnDelete;
-    youBorrows data;
+    Transports data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.setTitle("Loan Edit");
+        this.setTitle("Transport Edit");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_you_borrow_edit);
+        setContentView(R.layout.activity_trans_edit);
 
         etCost = findViewById(R.id.etCost);
         etDesc = findViewById(R.id.etDesc);
         etDate = findViewById(R.id.etDate);
-        etName = findViewById(R.id.etName);
-
         btnDelete = findViewById(R.id.btnDelete);
         btnUpdate = findViewById(R.id.btnUpdate);
 
         Intent i = getIntent();
-        data = (youBorrows) i.getSerializableExtra("data");
+        data = (Transports) i.getSerializableExtra("data");
         etDesc.setText(data.getDesc());
         etCost.setText(data.getCost()+"");
         etDate.setText(data.getDate());
-        etName.setText(data.getName());
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youBorrowDBHelper db = new youBorrowDBHelper(youBorrowEdit.this);
+                TransportDBHelper db = new TransportDBHelper(TransEditActivity.this);
                 data.setDesc(etDesc.getText().toString());
                 int intCost = Integer.parseInt(etCost.getText().toString());
                 data.setCost(intCost);
-                data.setName(etName.getText().toString());
                 data.setDate(etDate.getText().toString());
                 db.updateInfo(data);
                 db.close();
@@ -49,7 +45,7 @@ public class youBorrowEdit extends AppCompatActivity {
                 i.putExtra("data", data);
                 setResult(RESULT_OK, i);
                 finish();
-                Toast.makeText(youBorrowEdit.this, "Updated successfully",
+                Toast.makeText(TransEditActivity.this, "Updated successfully",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -57,30 +53,16 @@ public class youBorrowEdit extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youBorrowDBHelper db = new youBorrowDBHelper(youBorrowEdit.this);
+                TransportDBHelper db = new TransportDBHelper(TransEditActivity.this);
                 db.deleteInfo(data.getId());
                 db.close();
                 Intent i = new Intent();
                 i.putExtra("data", data);
                 setResult(RESULT_OK, i);
                 finish();
-                Toast.makeText(youBorrowEdit.this, "Deleted successfully",
+                Toast.makeText(TransEditActivity.this, "Deleted successfully",
                         Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public void goMessage(View view){
-        String msgCost = etCost.getText().toString().trim();
-        String msgDesc = etDesc.getText().toString();
-        String msgDate = etDate.getText().toString();
-        String msgName = etName.getText().toString();
-
-        Intent i = new Intent(youBorrowEdit.this, oweMessageNoti.class);
-        i.putExtra("name", msgName);
-        i.putExtra("date", msgDate);
-        i.putExtra("desc", msgDesc);
-        i.putExtra("cost", msgCost);
-        startActivity(i);
     }
 }

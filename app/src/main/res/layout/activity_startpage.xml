@@ -23,28 +23,31 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/logo"
+            android:textStyle="bold"
             android:text="CashTrack"
             android:textSize="40dp"/>
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="#BDA47E"
-            android:text="REGISTER" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnRegister"
+            android:layout_below="@id/tvName"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="#BDA47E"
+            android:layout_marginTop="80dp"
+            android:background="#F3EBDF"
             android:text="LOGIN" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLogin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="#F3EBDF"
+            android:text="REGISTER" />
+
+
     </RelativeLayout>
 
 

@@ -75,7 +75,7 @@
             android:layout_below="@id/etDate"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="70dp"
-            android:background="@android:color/holo_green_light"
+            android:background="#F3EBDF"
             android:text="Update" />
 
         <Button

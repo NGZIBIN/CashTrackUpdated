@@ -35,6 +35,7 @@ ArrayList<Shoppings> al;
 ListAdapter listAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Shopping");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
@@ -206,6 +207,16 @@ ListAdapter listAdapter;
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        int total = 0;
+
+        ShoppingDBHelper helperShop = new ShoppingDBHelper(Shopping.this);
+        ArrayList<Shoppings> transShop = helperShop.getAllData();
+        for(int i = 0; i < transShop.size(); i ++){
+            int shopCost = transShop.get(i).getCost();
+            total = shopCost + total;
+        }
+        String totalString = String.valueOf(total);
+        totalCost.setText(totalString);
         if (resultCode == RESULT_OK && requestCode == 8) {
             shopDB = new ShoppingDBHelper(getApplicationContext());
             db = shopDB.getReadableDatabase();

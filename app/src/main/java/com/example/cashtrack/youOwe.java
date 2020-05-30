@@ -3,7 +3,10 @@ package com.example.cashtrack;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,7 +20,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +38,7 @@ public class youOwe extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Owe");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_owe);
         lvData = findViewById(R.id.lvData);
@@ -146,6 +149,20 @@ public class youOwe extends AppCompatActivity {
                     etInputName.setError("Please enter a Name");
                 }
                 else{
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.SECOND, 5);
+
+                    Intent i = new Intent(youOwe.this, ScheduledNotiOwe.class);
+                    int reqCode = 123;
+
+                    i.putExtra("name", etInputName.getText().toString());
+                    i.putExtra("cost", etInputCost.getText().toString());
+                    i.putExtra("desc", etInputDesc.getText().toString());
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(youOwe.this,reqCode,
+                            i, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+                    am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                     youOweDBHelper helper = new youOweDBHelper(youOwe.this);
 
                     long row = helper.insertData1(addDesc, addName, intCost, addDate);

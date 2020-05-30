@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bgaddpage"
+    android:background="@drawable/bg"
     android:weightSum="10"
     tools:context=".Transport">
 
@@ -19,10 +19,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:text="Transport"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginLeft="140dp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:textColor="#090808"
             android:textSize="25dp" />
 

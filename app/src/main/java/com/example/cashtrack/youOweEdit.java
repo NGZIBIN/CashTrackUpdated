@@ -15,6 +15,7 @@ public class youOweEdit extends AppCompatActivity {
     youOwes data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Owe Edit");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_owe_edit);
         etCost = findViewById(R.id.etCost);
@@ -65,6 +66,20 @@ public class youOweEdit extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void goMessage(View view){
+        String msgCost = etCost.getText().toString().trim();
+        String msgDesc = etDesc.getText().toString();
+        String msgDate = etDate.getText().toString();
+        String msgName = etName.getText().toString();
+
+        Intent i = new Intent(youOweEdit.this, oweMessageNoti.class);
+        i.putExtra("name", msgName);
+        i.putExtra("date", msgDate);
+        i.putExtra("desc", msgDesc);
+        i.putExtra("cost", msgCost);
+        startActivity(i);
     }
 
 }

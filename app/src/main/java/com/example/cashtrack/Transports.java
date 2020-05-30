@@ -2,14 +2,14 @@ package com.example.cashtrack;
 
 import java.io.Serializable;
 
-public class TransportAdapter implements Serializable {
+public class Transports implements Serializable {
     private int id;
     private String desc;
     private int cost;
     private String date;
 
 
-    public TransportAdapter(int id, String desc, int cost, String date) {
+    public Transports(int id, String desc, int cost, String date) {
         this.id = id;
         this.desc = desc;
         this.cost = cost;

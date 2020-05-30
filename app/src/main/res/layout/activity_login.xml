@@ -12,22 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/smallicon2"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="30dp"/>
 
 
         <TextView
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="125dp"
+            android:fontFamily="@font/montserrat"
             android:text="Login"
             android:textColor="#070707"
-            android:textSize="40dp"/>
+            android:textSize="36dp"/>
         <EditText
             android:id="@+id/etName"
             android:layout_below="@+id/login"
             android:layout_width="250dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/edittextbackground"
             android:layout_height="wrap_content"
             android:hint="Username"
@@ -49,9 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/etPass"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="55dp"
             android:text="LOGIN"
-            android:background="#8AB3B9"/>
+            android:background="#F3EBDF"/>
 
         <TextView
             android:id="@+id/newUser"
@@ -59,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnLogin"
             android:text="New user?"
+            android:textColor="#000000"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"/>
 

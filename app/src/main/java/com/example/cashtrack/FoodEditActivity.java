@@ -15,6 +15,7 @@ Button btnUpdate, btnDelete;
 Foods data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Food Edit");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_edit);
         etCost = findViewById(R.id.etCost);
@@ -61,6 +62,7 @@ Foods data;
                 finish();
                 Toast.makeText(FoodEditActivity.this, "Deleted successfully",
                         Toast.LENGTH_SHORT).show();
+                recreate();
             }
         });
     }

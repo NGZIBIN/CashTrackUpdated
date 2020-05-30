@@ -17,7 +17,7 @@ public class TransportListAdapter extends ArrayAdapter {
 
     List list = new ArrayList();
 
-    public TransportListAdapter(@NonNull Context context, int resource, ArrayList<TransportAdapter> al) {
+    public TransportListAdapter(@NonNull Context context, int resource, ArrayList<Transports> al) {
         super(context, resource);
     }
     static class LayoutHandler{
@@ -58,7 +58,7 @@ public class TransportListAdapter extends ArrayAdapter {
         else{
             layoutHandler = (TransportListAdapter.LayoutHandler) row.getTag();
         }
-        TransportAdapter transportAdapter = (TransportAdapter) this.getItem(position);
+        Transports transportAdapter = (Transports) this.getItem(position);
         layoutHandler.DESC.setText(transportAdapter.getDesc());
         layoutHandler.COST.setText(Integer.toString(transportAdapter.getCost()));
         layoutHandler.DATE.setText(transportAdapter.getDate());

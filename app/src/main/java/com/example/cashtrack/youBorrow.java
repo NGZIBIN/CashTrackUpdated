@@ -3,7 +3,10 @@ package com.example.cashtrack;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,6 +36,7 @@ public class youBorrow extends AppCompatActivity {
     youBorrowListAdapter listAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("Loan");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_borrow);
 
@@ -88,6 +92,9 @@ public class youBorrow extends AppCompatActivity {
 
         final ImageView btnDatePicker = viewDialog.findViewById(R.id.btnDate);
 
+
+
+
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +121,7 @@ public class youBorrow extends AppCompatActivity {
         String cDate = date.format(new Date());
         etInputDate.setText(cDate);
 
-        AlertDialog myBuilder = new AlertDialog.Builder(youBorrow.this).setView(viewDialog)
+        final AlertDialog myBuilder = new AlertDialog.Builder(youBorrow.this).setView(viewDialog)
         .setTitle("Add New")
         .setCancelable(false)
                 .setNegativeButton("Cancel", null)
@@ -124,11 +131,27 @@ public class youBorrow extends AppCompatActivity {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int total = 0;
+
                 String addDesc = etInputDesc.getText().toString();
                 String addCost = etInputCost.getText().toString();
                 String addDate = etInputDate.getText().toString();
                 String addName = etInputName.getText().toString();
+
+//                Calendar cal = Calendar.getInstance();
+//                cal.add(Calendar.SECOND, 5);
+//
+//                Intent i = new Intent(youBorrow.this, ScheduledNoti.class);
+//                int reqCode = 12345;
+//
+//                i.putExtra("name", addName);
+//                i.putExtra("cost", addCost);
+//                i.putExtra("desc", addDesc);
+//                PendingIntent pendingIntent = PendingIntent.getBroadcast(youBorrow.this,reqCode,
+//                        i, PendingIntent.FLAG_CANCEL_CURRENT);
+//
+//                AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+//                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
                 int intCost = Integer.parseInt(addCost);
 
                 if(addDesc.isEmpty()){
@@ -150,12 +173,27 @@ public class youBorrow extends AppCompatActivity {
                     helper.close();
 
                     if(row != -1){
+                        Calendar cal = Calendar.getInstance();
+                        cal.add(Calendar.SECOND, 5);
+
+                        Intent i = new Intent(youBorrow.this, ScheduledNotiBorrow.class);
+                        int reqCode = 12345;
+
+                        i.putExtra("name", etInputName.getText().toString());
+                        i.putExtra("cost", etInputCost.getText().toString());
+                        i.putExtra("desc", etInputDesc.getText().toString());
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(youBorrow.this,reqCode,
+                                i, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                        AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+                        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                         Toast.makeText(youBorrow.this,"Added Successfully!", Toast.LENGTH_LONG).show();
                         borrowDB = new youBorrowDBHelper(getApplicationContext());
                         db = borrowDB.getReadableDatabase();
                         cursor = borrowDB.getAllDataForList();
                         listAdapter = new youBorrowListAdapter(getApplicationContext(), R.layout.row_layout,al);
                         lvData.setAdapter(listAdapter);
+                        myBuilder.dismiss();
                         if(cursor.moveToFirst()){
                             do{
                                 String desc, date, name;
