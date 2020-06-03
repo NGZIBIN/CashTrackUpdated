@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class TransportDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "transCost";
     private static final String TABLE_TRANSPORT = "transport";
     private static final String COLUMN_ID = "_id";

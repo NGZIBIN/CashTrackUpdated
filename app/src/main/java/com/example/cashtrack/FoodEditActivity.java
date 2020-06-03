@@ -65,5 +65,10 @@ Foods data;
                 recreate();
             }
         });
+
+    }
+    public void back(View view){
+        Intent i = new Intent(FoodEditActivity.this, Food.class);
+        startActivity(i);
     }
 }

@@ -83,4 +83,9 @@ public class youBorrowEdit extends AppCompatActivity {
         i.putExtra("cost", msgCost);
         startActivity(i);
     }
+
+    public void back(View view){
+        Intent i = new Intent(youBorrowEdit.this, youBorrow.class);
+        startActivity(i);
+    }
 }

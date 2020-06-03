@@ -246,6 +246,10 @@ ListAdapter listAdapter;
 
     }
 
+    public void back(View view){
+        refreshActivity();
+    }
+
     public void refreshActivity() {
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,14 +34,16 @@ public class Profile extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         tvPass = findViewById(R.id.tvNumber);
 
-        Intent ans = getIntent();
-        String name = ans.getStringExtra("username");
-        String pass = ans.getStringExtra("pass");
+        LoginDBHelper dbh = new LoginDBHelper(Profile.this);
+        ArrayList<Accounts> logins = dbh.getAllAccount();
+        for(int i = 0; i < logins.size(); i ++){
+            String username = logins.get(i).getName();
+            String pass = logins.get(i).getPass();
+            tvUsername.setText(username);
+            tvPass.setText(pass);
+            profileName.setText(username);
+        }
 
-        tvUsername.setText(name);
-        tvPass.setText(pass);
-
-        profileName.setText(name);
         sharedPreferencesConfig = new SharedPreferencesConfig(getApplicationContext());
         profileImage = findViewById(R.id.profile_image);
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -93,5 +96,9 @@ public class Profile extends AppCompatActivity {
 
 
 
+    }
+    public void back(View view){
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        startActivity(i);
     }
 }

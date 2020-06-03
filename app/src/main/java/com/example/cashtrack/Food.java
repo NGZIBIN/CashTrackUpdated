@@ -143,8 +143,6 @@ public class Food extends AppCompatActivity {
                 String addDesc = etInputDesc.getText().toString();
                 String addCost = etInputCost.getText().toString();
                 String addDate = etInputDate.getText().toString();
-
-
                 if(addDesc.isEmpty()){
                     etInputDesc.setError("Please enter a Description");
                 }
@@ -159,9 +157,7 @@ public class Food extends AppCompatActivity {
                     int intCost = Integer.parseInt(addCost);
                     long row = helper.insertData(addDesc, intCost, addDate);
                     helper.close();
-
                     if(row != -1){
-
                         Toast.makeText(Food.this,"Added Successfully!", Toast.LENGTH_LONG).show();
                         foodDB = new FoodDBHelper(getApplicationContext());
                         db = foodDB.getReadableDatabase();
@@ -197,6 +193,9 @@ public class Food extends AppCompatActivity {
 
 
     }
+    public void back(View view){
+        refreshActivity();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
@@ -224,8 +223,6 @@ public class Food extends AppCompatActivity {
                     desc = cursor.getString(1);
                     cost = cursor.getInt(2);
                     date = cursor.getString(3);
-
-
 
                     Foods foodAdapter = new Foods(id, desc, cost, date);
                     listAdapter.add(foodAdapter);

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -38,5 +39,9 @@ public class totalSpendStats extends AppCompatActivity {
 
         AnyChartView anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
         anyChartView.setChart(pie);
+    }
+    public void back(View view){
+        Intent i = new Intent(totalSpendStats.this, MainActivity.class);
+        startActivity(i);
     }
 }

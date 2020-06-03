@@ -82,4 +82,9 @@ public class youOweEdit extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void back(View view){
+        Intent i = new Intent(youOweEdit.this, youOwe.class);
+        startActivity(i);
+    }
+
 }

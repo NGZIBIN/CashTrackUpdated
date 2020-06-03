@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class LoginDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "login";
     private static final String TABLE_ACC = "account";
     private static final String COLUMN_ID = "_id";
@@ -41,6 +41,8 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACC);
         onCreate(db);
     }
+
+
 
     public long insertAccount(String name, int number, String pass) {
         SQLiteDatabase db = this.getWritableDatabase();

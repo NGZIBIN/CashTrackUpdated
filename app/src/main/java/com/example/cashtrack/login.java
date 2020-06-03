@@ -66,9 +66,9 @@ public class login extends AppCompatActivity {
                         else if(name != (dbName) && (pass.equals(dbPass))){
                             Toast.makeText(login.this, "Wrong Username Entered", Toast.LENGTH_LONG).show();
                         }
-//                        else{
+
+//                        else if(name != (dbName) && (pass != (dbPass))){
 //                            Toast.makeText(login.this, "Account does not exist. Please register a account.", Toast.LENGTH_LONG).show();
-//
 //                        }
                     }
             }

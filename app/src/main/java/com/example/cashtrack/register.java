@@ -69,7 +69,7 @@ public class register extends AppCompatActivity {
                         String sNum = String.valueOf(num);
 
                         if (newName.equals(name) && newNum.equals(sNum)) {
-                            Toast.makeText(register.this, "Existing Account", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(register.this, "Existing Account", Toast.LENGTH_LONG).show();
                         }
                     }
                 }

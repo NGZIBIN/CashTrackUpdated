@@ -54,4 +54,8 @@ public class oweMessageNoti extends AppCompatActivity {
 
         finish();
     }
+    public void back(View view){
+        Intent i = new Intent(oweMessageNoti.this, youBorrow.class);
+        startActivity(i);
+    }
 }

@@ -65,4 +65,8 @@ public class ShopEditActivity extends AppCompatActivity {
             }
         });
     }
+    public void back(View view){
+        Intent i = new Intent(ShopEditActivity.this, Shopping.class);
+        startActivity(i);
+    }
 }

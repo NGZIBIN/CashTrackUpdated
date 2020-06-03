@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class youOweDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "youOwe";
     private static final String TABLE_OWE = "youOwe";
     private static final String COLUMN_ID = "_id";

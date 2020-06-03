@@ -65,4 +65,8 @@ public class TransEditActivity extends AppCompatActivity {
             }
         });
     }
+    public void back(View view){
+        Intent i = new Intent(TransEditActivity.this, Transport.class);
+        startActivity(i);
+    }
 }

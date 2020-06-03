@@ -187,6 +187,9 @@ public class youBorrow extends AppCompatActivity {
 
                         AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
                         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
+
+
                         Toast.makeText(youBorrow.this,"Added Successfully!", Toast.LENGTH_LONG).show();
                         borrowDB = new youBorrowDBHelper(getApplicationContext());
                         db = borrowDB.getReadableDatabase();
@@ -220,6 +223,9 @@ public class youBorrow extends AppCompatActivity {
         });
 
 
+    }
+    public void back(View view){
+        refreshActivity();
     }
 
     @Override
@@ -255,6 +261,7 @@ public class youBorrow extends AppCompatActivity {
         }
 
     }
+
     public void refreshActivity() {
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -267,4 +274,5 @@ public class youBorrow extends AppCompatActivity {
         refreshActivity();
         super.onBackPressed();
     }
+
 }
